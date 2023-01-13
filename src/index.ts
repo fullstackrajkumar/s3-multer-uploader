@@ -1,12 +1,12 @@
-import * as AWS from 'aws-sdk';
+import AWS from 'aws-sdk';
 import multer from 'multer';
 import multerS3 from 'multer-s3-v2';
 
-export interface ConfigType{
-    secretAccessKey : String;
-    accessKeyId : String;
-    region : String;
-    bucketName : String;
+export interface ConfigType {
+    secretAccessKey: String;
+    accessKeyId: String;
+    region: String;
+    bucketName: String;
 }
 
 class AWSUploader {
@@ -14,7 +14,7 @@ class AWSUploader {
     accessKeyId: any;
     region: any;
     bucketName: any;
-    constructor(obj:ConfigType) {
+    constructor(obj: ConfigType) {
         this.secretAccessKey = obj.secretAccessKey
         this.accessKeyId = obj.accessKeyId
         this.region = obj.region
@@ -29,10 +29,10 @@ class AWSUploader {
         const s3 = new AWS.S3();
         return multer({
             storage: multerS3({
-                S3: s3,
+                s3: s3,
                 acl: 'public-read',
                 bucket: this.bucketName,
-                key: function (req:any, file:any, cb:any) {
+                key: function (req: any, file: any, cb: any) {
                     cb(null, file.originalname); //use Date.now() for unique file keys
                 }
             })
@@ -40,4 +40,4 @@ class AWSUploader {
     }
 }
 
-export default AWSUploader
+export { AWSUploader }
