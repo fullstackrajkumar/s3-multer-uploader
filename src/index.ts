@@ -33,7 +33,7 @@ class AWSUploader {
                 acl: 'public-read',
                 bucket: this.bucketName,
                 key: function (req: any, file: any, cb: any) {
-                    cb(null, file.originalname); //use Date.now() for unique file keys
+                    cb(null, new Date().getTime()+file.originalname); //use Date.now() for unique file keys
                 }
             })
         });
